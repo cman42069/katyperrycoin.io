@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KatyPerry Coin - Katy Perry Space Crypto</title>
+    <style>
+        :root {
+            --primary: #ff69b4;
+            --secondary: #9932cc;
+            --dark: #120338;
+            --light: #f8f9fa;
+            --accent: #00bfff;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark);
+            color: var(--light);
+            background-image: linear-gradient(rgba(18, 3, 56, 0.9), rgba(18, 3, 56, 0.9)),
+                              url('https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/simple-icons.svg');
+            background-size: cover;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '✨';
+            font-size: 20px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .coin-stats {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            min-width: 150px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .stat-card p {
+            font-size: 1.5rem;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .space-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .about {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            color: var(--primary);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .mission-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mission-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .mission-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .mission-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .team {
+            padding: 5rem 2rem;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .team-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            border: 3px solid var(--primary);
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-photo.placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            font-size: 2rem;
+        }
+
+        .team-member h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member p {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .roadmap {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+        }
+
+        .timeline-content {
+            position: relative;
+            width: calc(50% - 40px);
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-date {
+            position: absolute;
+            top: 0;
+            width: 70px;
+            height: 30px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-date {
+            left: -90px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-date {
+            right: -90px;
+        }
+
+        .timeline-content h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .buy {
+            padding: 5rem 2rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .buy-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .progress-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 4rem auto 2rem;
+            position: relative;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 35%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 15px;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .token-calculator {
+            margin-top: 4rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .calculator-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            padding: 0.8rem;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .calculator-result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-date,
+            .timeline-item:nth-child(even) .timeline-date {
+                left: -50px;
+                width: 60px;
+            }
+
+            .timeline-item::before {
+                left: 30px;
+            }
+
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .popup button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .popup button:hover {
+            background-color: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">KatyPerry Coin</div>
+            </div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#buy">Buy</a></li>
+                <li><a href="#" id="tokenomics-link">Tokenomics</a></li> </ul>
+            <button class="btn">Connect Wallet</button>
+        </nav>
+    </header>
+
+    <div class="space-animation" id="space"></div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>KatyPerry Coin</h1>
+            <p>The first cryptocurrency inspired by Katy Perry and the all-female crew mission to space. Join us as we reach for the stars!</p>
+            <button class="btn">Buy KatyPerry Now</button>
+
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2 class="section-title">Our Mission</h2>
+        <p>KatyPerry Coin is more than just a cryptocurrency - it's a movement celebrating women in space exploration, inspired by Katy Perry's cosmic anthems and her support for the groundbreaking all-female space mission. Our goal is to fund and promote women in STEM while creating a vibrant community of holders who believe in breaking barriers.</p>
+
+        <div class="mission-grid">
+            <div class="mission-card">
+                <i>🚀</i>
+                <h3>Fund Female Space Innovation</h3>
+                <p>10% of all transaction fees go directly to scholarships for women pursuing careers in aerospace and astronautics.</p>
+            </div>
+            <div class="mission-card">
+                <i>🌠</i>
+                <h3>Community Governance</h3>
+                <p>KatyPerry holders vote on key decisions and initiatives, ensuring true decentralization and female representation.</p>
+            </div>
+            <div class="mission-card">
+                <i>💫</i>
+                <h3>Exclusive Space Events</h3>
+                <p>Token holders gain access to virtual events with female astronauts, scientists, and special appearances by Katy Perry.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="team" id="team">
+        <div class="team-content">
+            <h2 class="section-title">The Stellar Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-photo placeholder">KP</div>
+                    <h3>Katy Perry</h3>
+                    <p>Honorary Advisor</p>
+                    <p>Pop icon and space enthusiast lending her star power to our mission of empowering women in space exploration.</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo placeholder">LS</div>
+                    <h3>Lauren Sánchez</h3>
+                    <p>CEO & Founder</p>
+                    <p>Journalist, pilot, and fiancée of Jeff Bezos; instrumental in assembling the crew and co-designing their custom Monse flight suits.</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo placeholder">LM</div>
+                    <h3>Luna Martinez</h3>
+                    <p>CTO</p>
+                    <p>Blockchain expert with previous experience at Ethereum Foundation and SpaceX's software engineering team.</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo placeholder">NC</div>
+                    <h3>Nova Chang</h3>
+                    <p>Community Lead</p>
+                    <p>Social media strategist who previously managed online communities for major tech brands and women in STEM initiatives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="roadmap" id="roadmap">
+        <h2 class="section-title">Cosmic Roadmap</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">Q2 2025</span>
+                    <h3>Launch</h3>
+                    <p>KatyPerry Coin launches on decentralized exchanges with initial liquidity pool of $2.5M. First 1,000holders receive exclusive NFTs signed by Katy Perry.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">Q3 2025</span>
+                    <h3>Expansion</h3>
+                    <p>Major exchange listings. Launch of KatyPerry Foundation providing scholarships to women in aerospace. Virtual concert featuring Katy Perry exclusively for token holders.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">Q4 2025</span>
+                    <h3>Innovation</h3>
+                    <p>Release of KatyPerry NFT marketplace featuring space-themed digital art by female artists. Introduction of staking program with enhanced APY for long-term holders.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">Q1 2026</span>
+                    <h3>Partnership</h3>
+                    <p>Official partnership with women-led space research organization. Launch of KatyPerry Launchpad for female-founded crypto projects. Community-voted space initiatives.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">Q2 2026</span>
+                    <h3>To Infinity</h3>
+                    <p>First KatyPerry-funded satellite launch featuring the logos of early adopters. Global conference on women in space with key industry leaders and celebrity ambassadors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="buy" id="buy">
+        <div class="buy-content">
+            <h2 class="section-title">Buy KatyPerry Coin</h2>
+            <p>Join our cosmic community and be part of the movement empowering women in space exploration.</p>
+
+            <div class="progress-container">
+                <p>Token Sale Progress: 35% Complete</p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="progress-stats">
+                    <span>0 KPC</span>
+                    <span>500M SGC</span>
+                </div>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Create a Wallet</h3>
+                        <p>Download and set up MetaMask or Trust Wallet to store your cryptocurrency securely.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Buy ETH or BNB</h3>
+                        <p>Purchase Ethereum or Binance Coin from an exchange like Coinbase, Binance, or Kraken.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Connect to DEX</h3>
+                        <p>Visit our official swap page or connect to Uniswap/PancakeSwap and link your wallet.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Swap for KatyPerry</h3>
+                        <p>Enter our contract address: 0x1234...5678 and swap your ETH/BNB for KatyPerry Coin (SGC).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="token-calculator">
+                <h3>Token Calculator</h3>
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="eth-amount">ETH Amount</label>
+                        <input type="number" id="eth-amount" placeholder="Enter ETH amount" min="0.01" step="0.01" value="1">
+                    </div>
+                    <button class="btn" onclick="calculateTokens()">Calculate</button>
+                    <div class="calculator-result" id="calculator-result">
+                        1 ETH = 78,125 SGC Tokens
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">KatyPerry Coin</div>
+            </div>
+
+            <div class="social-links">
+                <a href="#" aria-label="Twitter">T</a>
+                <a href="#" aria-label="Telegram">TG</a>
+                <a href="#" aria-label="Discord">D</a>
+                <a href="#" aria-label="Medium">M</a>
+                <a href="#" aria-label="GitHub">G</a>
+            </div>
+
+            <div class="footer-nav">
+                <a href="#">Whitepaper</a>
+                <a href="#">Tokenomics</a>
+                <a href="#">Audit</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+
+            <p class="copyright">&copy; 2025 KatyPerry Coin. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="tokenomics-popup" class="popup">
+        <h2>Tokenomics</h2>
+        <p>Pump!</p>
+        <button id="close-popup">Close</button>
+    </div>
+
+    <script>
+        // Create space animation with stars
+        document.addEventListener('DOMContentLoaded', function() {
+            const spaceContainer = document.getElementById('space');
+            const starsCount = 200;
+
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+
+                // Random position
+                const x = Math.floor(Math.random() * window.innerWidth);
+                const y = Math.floor(Math.random() * window.innerHeight);
+
+                // Random size
+                const size = Math.random() * 3;
+
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}px`;
+                star.style.top = `${y}px`;
+
+                // Random opacity for twinkling effect
+                star.style.opacity = Math.random();
+
+                // Add star to the space container
+                spaceContainer.appendChild(star);
+
+                // Animate the stars
+                setInterval(() => {
+                    star.style.opacity = Math.random();
+                }, Math.random() * 5000 + 2000);
+            }
+        });
+
+        // Token calculator
+        function calculateTokens() {
+            const ethAmount = parseFloat(document.getElementById('eth-amount').value) || 0;
+            const ethPrice = 2500; // Example ETH price in USD
+            const tokenPrice = 0.0128; // StarGirl token price in USD
+
+            if (ethAmount <= 0) {
+                document.getElementById('calculator-result').innerText = 'Please enter a valid amount';
+                return;
+            }
+
+            const ethValue = ethAmount * ethPrice;
+            const tokensAmount = Math.floor(ethValue / tokenPrice);
+
+            document.getElementById('calculator-result').innerText =
+                `${ethAmount} ETH = ${tokensAmount.toLocaleString()} SGC Tokens`;
+        }
+
+        // Popup functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tokenomicsLink = document.getElementById('tokenomics-link');
+            const popup = document.getElementById('tokenomics-popup');
+            const closePopupBtn = document.getElementById('close-popup');
+
+            if (tokenomicsLink && popup && closePopupBtn) { // Check if elements exist
+                tokenomicsLink.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default link behavior
+                    popup.style.display = 'block';
+                });
+
+                closePopupBtn.addEventListener('click', function() {
+                    popup.style.display = 'none';
+                });
+
+                // Close popup when clicking outside
+                window.addEventListener('click', function(event) {
+                    if (event.target === popup) {
+                        popup.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
